@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>HTML5 Canvas</h1>
+    <h2>The lineTo() Method</h2>
+
+    <canvas id="myCanvas" width="300" height="150" style="border:1px solid grey"></canvas>
+
+    <script>
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(300, 150);
+        ctx.stroke();
+    </script>
+
+</body>
+
+</html>

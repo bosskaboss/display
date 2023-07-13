@@ -2,21 +2,29 @@
 <html lang="en">
 
 
-<canvas id="canvas" width="300" height="300"></canvas>
+<canvas id="myCanvas" width="300" height="300"></canvas>
 
 <head>
     <title>
-     Dibyesh's Digital Display Case
-    </title>  
+        Dibyesh's Digital Display Case
+    </title>
 </head>
-<header class = "header" role = "banner" id ="top">
+<header class="header" role="banner" id="top">
     Dibyesh's Digital Display Case
 </header>
+
 <body>
     <div>
-        Hello, I am Dibyesh, a 
+        Hello, I am Dibyesh, a
     </div>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-</body>
+    <script src="index.js">
 
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(300, 150);
+        ctx.stroke();
+    </script>
+</body>
