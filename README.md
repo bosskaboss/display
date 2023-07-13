@@ -1,2 +1,2 @@
 # display
-Learning to create website to diplay projects
+Learning how to create a website to display projects
