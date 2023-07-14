@@ -12,7 +12,9 @@ var id = null;
 function init() {
     let i = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    while (i < 10) {
+    ctx.globalAlpha = 0.2;
+    ctx.lineCap = 'round';
+    while (i < 15) {
         iposY = Math.floor(Math.random() * 300 - 50);
         iposX = Math.floor(Math.random() * 600 + 50);
         lineLength = 200;
@@ -21,7 +23,7 @@ function init() {
         pos.push([iposX, iposY, fposX, fposY]);
         i++;
     }
-    function animate(direction,starttim,fintim) {
+    function animate(direction, starttim, fintim) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         pos.forEach(element => {
@@ -29,22 +31,24 @@ function init() {
             element[1] -= direction;
             element[2] += direction;
             element[3] += direction;
-            drawLine(ctx, element[0], element[1], element[2], element[3], 'tomato', 3);
+            drawLine(ctx, element[0], element[1], element[2], element[3], 'Aqua', 5);
         });
 
-        if(starttim != fintim){
+        draw4circles(100,100,starttim,45,30);
+
+        if (starttim != fintim) {
             starttim++;
         }
-        if(starttim == fintim){
-            direction *=-1;
-            starttim =0;
+        if (starttim == fintim) {
+            direction *= -1;
+            starttim = 0;
         }
-        console.log(direction);
+
         requestAnimationFrame(function () {
-            animate(direction,starttim,fintim);
+            animate(direction, starttim, fintim);
         });
     }
-    animate(speed,0,500);
+    animate(speed, 0, 360);
 
 
 }
@@ -66,6 +70,34 @@ function drawLine(ctx, x1, y1, x2, y2, stroke = 'black', width = 3) {
 
     // add stroke to the line 
     ctx.stroke();
+
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.arc((x1 + x2) / 2, (y1 + y2) / 2, 3, 0, 2 * Math.PI, false);
+    ctx.fillStyle = stroke;
+    ctx.fill();
+    ctx.closePath();
 }
 
+function drawcircle(x1,y1,size,stroke = 'black'){
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.arc(x1, y1, size, 0, 2 * Math.PI, false);
+    ctx.fillStyle = stroke;
+    ctx.fill();
+}
+function draw4circles(x,y,angle,size,spread){
+    x1 = Math.sin(angle * Math.PI/180)*spread + x;
+    y1 = Math.cos(angle * Math.PI/180)*spread +y ;
+    drawcircle(x1,y1,size,'Aqua');
+    x2 = Math.sin((angle+90) * Math.PI/180)*spread + x;
+    y2 = Math.cos((angle+90) * Math.PI/180)*spread + y ;
+    drawcircle(x2,y2,size,'Aqua');
+    x3 = Math.sin((angle+180) * Math.PI/180)*spread + x;
+    y3 = Math.cos((angle+180) * Math.PI/180)*spread +y ;
+    drawcircle(x3,y3,size,'Aqua');
+    x4 = Math.sin((angle+270) * Math.PI/180)*spread + x;
+    y4 = Math.cos((angle+270) * Math.PI/180)*spread + y ;
+    drawcircle(x4,y4,size,'Aqua');
+}
 if (canvas) init();
