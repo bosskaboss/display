@@ -6,7 +6,7 @@ var lineLength = 200;
 var fposY;
 var fposX;
 var speed = 0.05;
-const pos = []
+var pos = []
 var id = null;
 
 function init() {
