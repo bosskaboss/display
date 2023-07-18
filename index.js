@@ -5,36 +5,50 @@ var iposX;
 var lineLength = 200;
 var fposY;
 var fposX;
+var disfrom_screen;
 var speed = 0.05;
 var pos = []
 var id = null;
-
+var starttime = Date.now();
+var endttime;
+var elapsed;
+var xpath;
+var ypath;
 function init() {
     let i = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 0.2;
+    
     ctx.lineCap = 'round';
-    while (i < 15) {
+    while (i < 30) {
         iposY = Math.floor(Math.random() * 300 - 50);
         iposX = Math.floor(Math.random() * 600 + 50);
-        lineLength = 200;
+        disfrom_screen = Math.random()*2/3 +.33;
+        lineLength = 200 * disfrom_screen;
         fposY = Math.cos(-30 * Math.PI / 180) * lineLength + iposY;
         fposX = Math.sin(-30 * Math.PI / 180) * lineLength + iposX;
-        pos.push([iposX, iposY, fposX, fposY]);
+        
+        pos.push([iposX, iposY, fposX, fposY,disfrom_screen]);
         i++;
     }
     function animate(direction, starttim, fintim) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        endttime = Date.now();
+        elapsed = endttime - starttime
         pos.forEach(element => {
-            element[0] -= direction;
-            element[1] -= direction;
-            element[2] += direction;
-            element[3] += direction;
-            drawLine(ctx, element[0], element[1], element[2], element[3], 'Aqua', 5);
+            /*
+            element[0] -= Math.sin(elapsed* Math.PI/180)*5;
+            element[1] -= Math.cos(elapsed* Math.PI/180)*5;
+            angle = starttim%10;
+            element[2] = Math.sin(-angle * Math.PI / 180) * lineLength + element[0];
+            element[3] = Math.cos(-angle * Math.PI / 180) * lineLength + element[1];
+            */
+            xpath = Math.sin(elapsed*0.01* Math.PI/180)*20;
+            ypath = Math.cos(elapsed*0.01* Math.PI/180 )*20;
+            ctx.globalAlpha = element[4] - .33;
+            drawLine(ctx, element[0] - xpath , element[1]- ypath, element[2]- xpath, element[3]- ypath, 'Aqua', 5);
         });
-
-        draw4circles(100,100,starttim,45,30);
+        ctx.globalAlpha = .1
+        draw4circles(100,100,elapsed*0.01%360,45,30);
 
         if (starttim != fintim) {
             starttim++;
